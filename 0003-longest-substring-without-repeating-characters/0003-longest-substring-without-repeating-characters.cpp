@@ -1,27 +1,19 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int maxLen = 0;
-        int start = 0;
-        
-       
-        for(int i = 0;i<s.length();i++){
-            map<char,int> check;
-            int currLen = 0;
-            for(int j = i;j<s.length();j++){
-            check[s[j]]++;
-           if(check[s[j]]>1){
-               break;
-           }
-           else{
-               currLen++;
-           }
-            }
-            if(currLen>maxLen){
-                maxLen = currLen;
-            }
-        }
-        return maxLen;
+      map<char,int> check;
+      int start = -1;
+      int maxLen = 0;
+      for(int i =0;i<s.length();i++){
+
+          if(check.count(s[i])!=0){
+              start = max(start,check[s[i]]);
+          }
+          check[s[i]] = i;
+          maxLen = max(maxLen,i-start);
+
+      }
+      return maxLen;
     }
 };
 
